@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BoomQueries - Powered By Boomtown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+	<div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h1>BoomQueries <small>Powered By Boomtown</small></h1>
+        </div>
+        <p class="lead">Our take on element queries; sizing elements based on their container.</p>
+      </div>
+    </div> <!-- end row -->
+	</div>
+  <br>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <h3 class="title-column">Column</h3>
+        <div class="component">
+          <h4 class="component__header">Component</h4>
+        </div> <!-- end component -->
+        <div class="component2">
+          <h4 class="component2__header">Component Two</h4>
+        </div> <!-- end component -->
+      </div> <!-- end column -->
+      <div class="col-xs-12 col-md-4">
+        <h3 class="title-column">Column</h3>
+        <div class="component">
+          <h4 class="component__header">Component</h4>
+        </div> <!-- end component -->
+        <div class="component2">
+          <h4 class="component2__header">Component Two</h4>
+        </div> <!-- end component -->
+      </div> <!-- end column -->
+    </div> <!-- end row -->
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8" id="first-column">
+        <h3 class="title-column">Column</h3>
+        
+
+      </div> <!-- end column -->
+      <div class="col-xs-12 col-md-4" id="second-column">
+        <h3 class="title-column">Column</h3>
+        
+
+      </div> <!-- end column -->
+    </div> <!-- end row -->
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8" id="third-column">
+        
+
+      </div> <!-- end column -->
+      <div class="col-xs-12 col-md-4" id="fourth-column">
+        
+
+      </div> <!-- end column -->
+    </div> <!-- end row -->
+
+  </div>
+
+  <script src="js/boomqueries.js"></script>
+  <script>
+
+    function createComponent() {
+      var comTitle = document.createElement('h4');
+      comTitle.classList.add('component__header');
+      comTitle.textContent = 'Component';
+
+      var component = document.createElement('div');
+      component.classList.add('component');
+      component.appendChild(comTitle);
+      return component;
+    }
+
+    function createComponent2() {
+      var comTitle = document.createElement('h4');
+      comTitle.classList.add('component2__header');
+      comTitle.textContent = 'Component Two';
+
+      var component = document.createElement('div');
+      component.classList.add('component2');
+      component.appendChild(comTitle);
+      return component;
+    }
+
+    var firstColumn = document.getElementById('first-column');
+    var secondColumn = document.getElementById('second-column');
+    var thirdColumn = document.getElementById('third-column');
+    var fourthColumn = document.getElementById('fourth-column');
+
+    console.groupCollapsed("Basic adding of elements using css selectors");
+
+      // ACTUAL ADD CALL
+      boomQueries.add(".component", [[480, "component--md"],[600, "component--lg"],[700, "component--xlg"]]);
+      boomQueries.add(".component2", [[520, "component2--md"],[680, "component2--lg"]]);
+      
+      console.log("%cboomQueries.add('.component2', breakPoints);", "font-weight:bold;font-size:12px;color:#080;");
+
+      console.assert(boomQueries.nodes.length === 4, "We have 4 elements in our internal array of nodes.");
+      console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+      boomQueries.inspect();
+
+      console.assert(Object.keys(boomQueries.map).length === 2, "We have 2 css selectors in our internal hash of selectors.");
+      console.log("Internal Map of Selectors: " + Object.keys(boomQueries.map).length);
+      boomQueries.inspect('map');
+    console.groupEnd();
+
+    setTimeout(function(){
+      console.groupCollapsed("Adding a DOM element");
+        var component = createComponent();
+        firstColumn.appendChild(component);
+
+        var component2 = createComponent2();
+        firstColumn.appendChild(component2);
+
+        // ACTUAL ADD CALL
+        boomQueries.add(component, [[480, "component--md"],[600, "component--lg"],[700, "component--xlg"]], "myCustomNode");
+        boomQueries.add(component2, [[520, "component2--md"],[680, "component2--lg"]], "myCustomNode2");
+
+        console.log("%cboomQueries.add(component2, breakpoints, 'myCustomNode2');", "font-weight:bold;font-size:12px;color:#080;");
+
+        console.assert(boomQueries.nodes.length === 6, "We now have 6 elements in our internal array of nodes.");
+        console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+        boomQueries.inspect();
+
+      console.groupEnd();
+    }, 2000);
+
+    setTimeout(function(){
+      console.groupCollapsed("Adding a DOM elements but refreshing lib instead of just adding");
+        var component = createComponent();
+        secondColumn.appendChild(component);
+
+        var component2 = createComponent2();
+        secondColumn.appendChild(component2);
+
+        // REFRESH ELEMENTS!!!!
+        boomQueries.refresh();
+
+        console.log("%cboomQueries.refresh();", "font-weight:bold;font-size:12px;color:#080;");
+
+        console.assert(boomQueries.nodes.length === 8, "We now have 8 elements in our internal array of nodes.");
+        console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+        boomQueries.inspect();
+
+      console.groupEnd();
+    }, 4000);
+
+
+    setTimeout(function(){
+      console.groupCollapsed("Adding a DOM element and attaching an event listener for callback");
+        var component = createComponent();
+        thirdColumn.appendChild(component);
+
+        var component2 = createComponent2();
+        thirdColumn.appendChild(component2);
+
+        component.addEventListener('nodeUpdated', function(event){
+          console.log(event.detail);
+        });
+
+        component2.addEventListener('nodeUpdated', function(event){
+          console.log(event.detail);
+        });
+
+        // REFRESH ELEMENTS!!!!
+        boomQueries.refresh();
+
+        console.log("%cAttached call back event listeners to new nodes", "font-weight:bold;font-size:12px;color:#080;");
+
+        console.assert(boomQueries.nodes.length === 10, "We now have 10 elements in our internal array of nodes.");
+        console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+        boomQueries.inspect();
+
+      console.groupEnd();
+
+      console.log("Triggering a window refresh so you can see the callback to save you from manually adjusting your window.");
+      window.dispatchEvent(new Event('resize'));
+
+    }, 6000);
+
+    setTimeout(function(){
+      console.groupCollapsed("Removing DOM elements and refreshing...");
+        thirdColumn.innerHTML = '';
+
+        // REFRESH ELEMENTS!!!!
+        boomQueries.refresh();
+
+        console.log("%cEmpty third column and refresh", "font-weight:bold;font-size:12px;color:#080;");
+
+        console.assert(boomQueries.nodes.length === 8, "We now have 8 elements in our internal array of nodes.");
+        console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+        boomQueries.inspect();
+
+      console.groupEnd();
+    }, 8000);
+
+    setTimeout(function(){
+      console.groupCollapsed("Removing event listener and not DOM element");
+
+        boomQueries.remove(".component2");
+
+        console.log("%cboomQueries.remove('.component2');", "font-weight:bold;font-size:12px;color:#080;");
+
+        console.assert(boomQueries.nodes.length === 4, "We now have 4 elements in our internal array of nodes.");
+        console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+        boomQueries.inspect();
+
+        console.assert(Object.keys(boomQueries.map).length === 1, "We have 1 css selectors in our internal hash of selectors.");
+        console.log("Internal Map of Selectors: " + Object.keys(boomQueries.map).length);
+        boomQueries.inspect('map');
+
+      console.groupEnd();
+
+      console.log("Did you catch that? .component2 elements are no longer updating...");
+    }, 10000);
+
+    setTimeout(function(){
+      console.groupCollapsed("Removing DOM element by ID");
+
+        console.log("If you noticed in the previous test, the internal nodes length is actually 5.");
+        console.log("This is because one of the .component2 elements was added as a DOM node with a specific ID. Let's remove that element now.");
+
+        boomQueries.remove("myCustomNode2");
+
+        console.log("%cboomQueries.remove('myCustomNode2');", "font-weight:bold;font-size:12px;color:#080;");
+
+        console.assert(boomQueries.nodes.length === 4, "We now have 4 elements in our internal array of nodes.");
+        console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+        boomQueries.inspect();
+
+        console.log("Now our internal array of nodes is 4. BOOM!");
+
+      console.groupEnd();
+    }, 12000);
+
+    setTimeout(function(){
+      console.groupCollapsed("Batch adding DOM nodes");
+
+        var component = createComponent();
+        thirdColumn.appendChild(component);
+
+        var component2 = createComponent2();
+        thirdColumn.appendChild(component2);
+
+        var component3 = createComponent();
+        fourthColumn.appendChild(component3);
+
+        var component4 = createComponent2();
+        fourthColumn.appendChild(component4);
+
+        var components = [component, component2, component3, component4];
+        boomQueries.add(components, [[480, "component--md"],[600, "component--lg"],[700, "component--xlg"]], 'boomNodes');
+
+        console.log("%cboomQueries.add(components, breakPoints, 'boomNodes');", "font-weight:bold;font-size:12px;color:#080;");
+
+        console.assert(boomQueries.nodes.length === 8, "We now have 8 elements in our internal array of nodes.");
+        console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+        boomQueries.inspect();
+
+      console.groupEnd();
+    }, 14000);
+
+
+
+  </script>
+
+</body>
+</html>

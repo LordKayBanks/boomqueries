@@ -4,11 +4,12 @@
   <title>BoomQueries - Powered By Boomtown</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <div class="container-fluid">
+
+	<div class="container-fluid">
     <div class="row">
       <div class="col-xs-12">
         <div class="page-header">
@@ -17,7 +18,7 @@
         <p class="lead">Our take on element queries; sizing elements based on their container.</p>
       </div>
     </div> <!-- end row -->
-	</div>
+  </div>
   <br>
   <div class="container-fluid">
     <div class="row">
@@ -392,22 +393,8 @@
 
   <script src="js/boomqueries.js"></script>
   <script>
-    window.boomQueries.add("COMPONENTKEY", {
-      selector: ".component",
-      breaks: [
-        [480, "component--md"],
-        [600, "component--lg"],
-        [720, "component--xlg"]
-      ]
-    });
-    window.boomQueries.add("COMPONENT2KEY", {
-      selector: ".component2",
-      breaks: [
-        [520, "component2--md"],
-        [680, "component2--lg"]
-      ]
-    });
-    window.boomQueries.calculate();
+    boomQueries.add(".component", [[480, "component--md"],[600, "component--lg"],[700, "component--xlg"]]);
+    boomQueries.add(".component2", [[520, "component2--md"],[680, "component2--lg"]]);
   </script>
 
 </body>
