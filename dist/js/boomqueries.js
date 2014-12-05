@@ -79,6 +79,7 @@
   // Internal function that accepts a DOM node with break points
   // Adds custom properties and a listener to the node and then stores the node in an internal array
   function _add(node, breakPoints, selector) {
+
     // Check to ensure we aren't already tracking this node
     if ( node.breaks === undefined ) {
 
@@ -126,13 +127,17 @@
       node.addEventListener('cleanup', function(event) {
         var self = this;
         this.breaks.forEach(function(br) {
-          classListRemove(self, br[1]);
+          removeClass(self, br[1]);
         });
+        delete this.breaks;
       });
 
       // Push the node on to our stack of nodes
       nodes.push(node);
+      return true;
     }
+
+    return false;
   }
 
   // Internal method that accepts a css selector,
@@ -216,6 +221,13 @@
     }
   }
 
+  function removeAll() {
+    var i;
+    for ( i = nodes.length; i--; ) {
+      _delete(i);
+    }
+  }
+
   function get(selector) {
     // Loop through internal array of nodes
     for ( var i = nodes.length; i--; ) {
@@ -237,6 +249,43 @@
   // Dispatch our custom event when the window resizes
   window.addEventListener('resize', debounce(null, update, 100), false);
 
+  // Check for existence of jQuery
+  if ( typeof window.jQuery !== 'undefined' ) {
+    
+    // Create closure and pass a shortened alias
+    (function($) {
+
+      // Attach our functionality to jQuery prototype
+      $.fn.boomQueries = function( options ) {
+
+        // Can pass options to overwrite our defaults
+        var settings = $.extend({}, options);
+
+        // Record the selector used
+        var selector = this.selector;
+        
+        // Only add selector if we don't already have it mapped
+        if ( !map.hasOwnProperty(selector) ) map[selector] = settings.breakPoints;
+
+        // Loop through collection of DOM nodes
+        return this.each(function() {
+          var node = $(this).get(0);
+
+          // add them to our internal stack of nodes
+          var added = _add(node, settings.breakPoints, selector);
+          if ( added ) node.dispatchEvent( new CustomEvent('checkyourself') );
+
+          // Call onAdd function if it's defined
+          if ( typeof settings.onAdd === 'function' ) {
+            settings.onAdd(node, nodes, selector);
+          }
+
+        });
+
+      };
+    }(window.jQuery));
+  }
+
   return {
     // Exposing for tests
     nodes:   nodes,
@@ -246,6 +295,7 @@
     add:     add,
     refresh: refresh,
     remove:  remove,
+    removeAll: removeAll,
     get:     get,
     inspect: inspect
   };
