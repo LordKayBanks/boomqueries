@@ -59,6 +59,23 @@ You can also bulk add DOM nodes.
 
 	// boomQueries.remove('myComponents') to remove them
 
+If you are using the jQuery library, you can also add components using jQuery.
+
+	jQuery(function($){
+
+		$(".component").boomQueries({
+			breakPoints: [[480, "component--md"],[600, "component--lg"],[700, "component--xlg"]],
+			onUpdate: function(event) {
+				console.log(event.detail);
+			},
+			onAdd: function(node, nodes, selector) {
+				console.assert(boomQueries.nodes.length === nodes.length, "We have " + nodes.length + " elements in our internal array of nodes.");
+				console.log("Internal Array of Nodes: " + boomQueries.nodes.length);
+			}
+		});
+		
+	});
+
 
 ## Refreshing Components
 
