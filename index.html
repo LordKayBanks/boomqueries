@@ -22,380 +22,52 @@
 
   <div class="container-fluid">
     <div class="row">
+      <div class="col-xs-12">
+        <div class="site-intro">
+          <p class="lead">BoomQueries is our take on <mark>element queries</mark>. No extra html markup. No html / css coupling. Just JavaScript.</p>
+          <div class="pretty-code"><pre class="prettyprint">
+&lt;!-- Include BoomQueries Script --&gt;
+&lt;script src="js/boomqueries.js"&gt;&lt;/script&gt;
+
+&lt;!-- Register elements with BoomQueries - pass breakpoints and modifier class names --&gt;
+&lt;script&gt;
+  boomQueries.add(".element", [[480, "element--md"],[600, "element--lg"],[700, "element--xlg"]]);
+  boomQueries.add(".element2", [[520, "element2--md"],[680, "element2--lg"]]);
+&lt;/script&gt;</pre></div> <!-- end pretty code -->
+        </div> <!-- end site intro -->
+      </div>
+    </div>
+    <div class="row">
       <div class="col-xs-12 col-sm-7 col-md-8 col-lg-7">
         <h3 class="title-column">Column</h3>
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
+        <div class="element">
+          <h4 class="element__header">.element</h4>
+        </div> <!-- end element -->
+        <div class="element2">
+          <h4 class="element__header">.element2</h4>
+        </div> <!-- end element -->
       </div> <!-- end column -->
       <div class="col-xs-12 col-sm-5 col-md-4 col-lg-5">
         <h3 class="title-column">Column</h3>
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
-        <div class="component">
-          <h4 class="component__header">Component 1</h4>
-        </div> <!-- end component -->
-        <div class="component2">
-          <h4 class="component2__header">Component 2</h4>
-        </div> <!-- end component -->
+        <div class="element">
+          <h4 class="element__header">.element</h4>
+        </div> <!-- end element -->
+        <div class="element2">
+          <h4 class="element__header">.element2</h4>
+        </div> <!-- end element -->
+        
       </div> <!-- end column -->
     </div> <!-- end row -->
   </div>
 
   <script src="js/boomqueries.js"></script>
+
   <script>
-    boomQueries.add(".component", [[480, "component--md"],[600, "component--lg"],[700, "component--xlg"]]);
-    boomQueries.add(".component2", [[520, "component2--md"],[680, "component2--lg"]]);
+    boomQueries.add(".element", [[480, "element--md"],[600, "element--lg"],[700, "element--xlg"]]);
+    boomQueries.add(".element2", [[520, "element2--md"],[680, "element2--lg"]]);
   </script>
+  
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 
 </body>
 </html>
