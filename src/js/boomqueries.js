@@ -20,18 +20,22 @@
 
   // classList.add() Polyfill
   function addClass(el, className) {
-    if (el.classList)
-      el.classList.add(className);
-    else
-      el.className += ' ' + className;
+    if (className) {
+      if (el.classList)
+        el.classList.add(className);
+      else
+        el.className += ' ' + className;
+    }
   }
 
   // classList.remove() Polyfill
   function removeClass(el, className) {
-    if (el.classList)
-      el.classList.remove(className);
-    else
-      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    if (className) {
+      if (el.classList)
+        el.classList.remove(className);
+      else
+        el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');  
+    }
   }
 
   // Polyfill for CustomEvent
