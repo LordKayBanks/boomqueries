@@ -130,7 +130,7 @@
       node.addEventListener('cleanup', function(event) {
         var self = this;
         this.breaks.forEach(function(br) {
-          classListRemove(self, br[1]);
+          removeClass(self, br[1]);
         });
       });
 
