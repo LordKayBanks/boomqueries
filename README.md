@@ -72,6 +72,18 @@ boomQueries.add(components, [
 // boomQueries.remove('myComponents') to remove them
 ```
 
+You can also manage multiple classes for each break point by separating class names with a space.
+
+```js
+var components = [document.createElement('div'), document.createElement('div'), document.createElement('div'), document.createElement('div')];
+boomQueries.add(components, [
+  [480, "component--md mdClass"],
+  [600, "component--lg lgClass"]
+], 'myComponents');
+
+// boomQueries.remove('myComponents') to remove them
+```
+
 ## Refreshing Components
 
 When you are working with a dynamic application that has lots of DOM changes, you should refresh your boomQueries after change.
