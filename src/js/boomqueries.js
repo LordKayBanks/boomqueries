@@ -23,7 +23,7 @@
     if (className) {
       // http://codepen.io/anon/pen/WbqddB?editors=101
       var classes = className.split(' ');
-      Array.prototype.forEach.call(classes, function(name) {
+      classes.forEach(function(name) {
         if ( name.length > 0 ) {
           if (el.classList)
             el.classList.add(name);
@@ -39,7 +39,7 @@
     if (className) {
       // http://codepen.io/anon/pen/WbqddB?editors=101
       var classes = className.split(' ');
-      Array.prototype.forEach.call(classes, function(name) {
+      classes.forEach(function(name) {
         if ( name.length > 0 ) {
           if (el.classList)
             el.classList.remove(name);
