@@ -271,6 +271,29 @@
       console.groupEnd();
     }, 14000);
 
+    setTimeout(function(){
+      console.groupCollapsed("Managing Multiple Classes");
+
+        var element = createElement();
+        thirdColumn.appendChild(element);
+
+        var element2 = createElement2();
+        thirdColumn.appendChild(element2);
+
+        var element3 = createElement();
+        fourthColumn.appendChild(element3);
+
+        var element4 = createElement2();
+        fourthColumn.appendChild(element4);
+
+        var elements = [element, element2, element3, element4];
+        boomQueries.add(elements, [[480, "element--md medClass"],[600, "element--lg lgClass"],[700, "element--xlg xlgClasses"]], 'boomNodes');
+
+        boomQueries.inspect();
+
+      console.groupEnd();
+    }, 16000);
+
 
 
   </script>

@@ -22,20 +22,32 @@
   // classList.add() Polyfill
   function addClass(el, className) {
     if (className) {
-      if (el.classList)
-        el.classList.add(className);
-      else
-        el.className += ' ' + className;
+      // http://codepen.io/anon/pen/WbqddB?editors=101
+      var classes = className.split(' ');
+      classes.forEach(function(name) {
+        if ( name.length > 0 ) {
+          if (el.classList)
+            el.classList.add(name);
+          else
+            el.className += ' ' + name;
+        }
+      });
     }
   }
 
   // classList.remove() Polyfill
   function removeClass(el, className) {
     if (className) {
-      if (el.classList)
-        el.classList.remove(className);
-      else
-        el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');  
+      // http://codepen.io/anon/pen/WbqddB?editors=101
+      var classes = className.split(' ');
+      classes.forEach(function(name) {
+        if ( name.length > 0 ) {
+          if (el.classList)
+            el.classList.remove(name);
+          else
+            el.className = el.className.replace(new RegExp('(^|\\b)' + name.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+      });
     }
   }
 
