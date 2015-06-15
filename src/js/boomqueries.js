@@ -63,22 +63,6 @@
     CustomEvent.prototype = window.Event.prototype;
   }
 
-  // Rate limit the amount of times our update method gets called on window resize
-  function debounce(context, func, wait, immediate) {
-    var timeout;
-    return function() {
-      var args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
-  }
-
   // Called whenever we need to ensure all nodes have their proper class
   function update(options) {
     var details = {};
@@ -89,6 +73,8 @@
     nodes.forEach(function(node) {
       node.dispatchEvent(updateEvent);
     });
+
+    requestAnimationFrame(update);
   }
 
   // Internal function that accepts a DOM node with break points
@@ -248,9 +234,6 @@
       else console.log(nodes);
     }
   }
-
-  // Dispatch our custom event when the window resizes
-  window.addEventListener('resize', debounce(null, update, 100), false);
 
   return {
     // Exposing for tests
