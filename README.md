@@ -162,7 +162,7 @@ And although it is not recommended, you can access the internal data for debuggi
 
 ## Browser Compatibility
 
-BoomQueries works in modern browsers that support [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). If you need support for an older browser; like IE9 - you can use [this gist](https://gist.github.com/paulirish/1579671) as a polyfill.
+BoomQueries works in modern browsers that support [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame), but also has a fallback for browsers that don't; like IE9. If you'd like to bring older browsers up to speed, then adding [this gist](https://gist.github.com/paulirish/1579671) as a polyfill will give 'em the good stuff.
 
 
 ## Contributing
