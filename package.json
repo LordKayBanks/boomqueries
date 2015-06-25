@@ -2,12 +2,13 @@
   "name": "boomqueries",
   "title": "BoomQueries",
   "description": "BoomQueries is our take on element queries; sizing elements based on their container.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "keywords": [
     "boomqueries",
     "element",
     "query",
     "resize",
+    "requestAnimationFrame",
     "client"
   ],
   "homepage": "http://boomtownroi.github.io/boomqueries/",
