@@ -26,7 +26,7 @@ There's a few options to get up and running with BoomQueries:
 
 ## Initializing/Adding Components
 
-Use `boomQueries.add()` to register your component(s) with the BoomQueries library. 
+Use `boomQueries.add()` to register your component(s) with the BoomQueries library.
 
 ```js
 boomQueries.add('.component', [
@@ -158,6 +158,11 @@ And although it is not recommended, you can access the internal data for debuggi
 
 `boomQueries.nodes`
 `boomQueries.map`
+
+
+## Browser Compatibility
+
+BoomQueries works in modern browsers that support [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame), but also has a fallback for browsers that don't; like IE9. If you'd like to bring older browsers up to speed, then adding [this gist](https://gist.github.com/paulirish/1579671) as a polyfill will give 'em the good stuff.
 
 
 ## Contributing
