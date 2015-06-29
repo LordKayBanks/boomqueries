@@ -183,4 +183,4 @@ BoomQueries is maintained by using the [Semantic Versioning Specification (SemVe
 
 ## Copyright and License
 
-Copyright 2014 [BoomTown](http://boomtownroi.com) under the [MIT License](https://github.com/BoomTownROI/boomqueries/blob/master/LICENSE.md)
+Copyright 2015 [BoomTown](http://boomtownroi.com) under the [MIT License](https://github.com/BoomTownROI/boomqueries/blob/master/LICENSE.md)
