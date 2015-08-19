@@ -103,7 +103,7 @@ There are times when you would want to fire additional functionality on a node a
 var component = document.createElement('div');
 document.body.appendChild(component);
 
-component.addEventListener('nodeUpdated', function(event){
+component.addEventListener('boomQueries_nodeUpdated', function(event){
   console.log(event.detail);
 });
 ```
@@ -138,8 +138,8 @@ Anywhere you see window.boomQueries in our examples can be replaced with the Com
 var boomQueries = require('boomqueries');
 
 boomQueries.add(".component", [
-	[480, "component--md"],
-	[600, "component--lg"]
+  [480, "component--md"],
+  [600, "component--lg"]
 ]);
 
 boomQueries.remove(".component");

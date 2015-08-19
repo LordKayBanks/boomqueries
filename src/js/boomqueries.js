@@ -124,8 +124,8 @@
     var details = {};
     // You can pass a custom object to each node when we dispatch the event
     if (typeof options !== 'undefined') details.detail = options;
-    var updateEvent = new CustomEvent('checkyourself', details);
-    // Loop through our nodes firing a 'checkyourself' event on each of them
+    var updateEvent = new CustomEvent('boomQueries_checkYourself', details);
+    // Loop through our nodes firing a 'boomQueries_checkYourself' event on each of them
     nodes.forEach(function(node) {
       node.dispatchEvent(updateEvent);
     });
@@ -148,7 +148,7 @@
       if (selector !== null) node.selector = selector;
 
       // Attach an event listener with functionality to update it's own class
-      node.addEventListener('checkyourself', function(event) {
+      node.addEventListener('boomQueries_checkYourself', function(event) {
         // event.detail is custom object if we have one
 
         // Ensure we have a parent with layout to assess our offsetWidth from
@@ -175,14 +175,14 @@
               'currentBreak': this.breaks[currentBreak]
             }
           };
-          var completedEvent = new CustomEvent('nodeUpdated', details);
+          var completedEvent = new CustomEvent('boomQueries_nodeUpdated', details);
 
           // You can now attach an event listener to this node to catch when we have completed the event
           this.dispatchEvent(completedEvent);
         }
       });
 
-      node.addEventListener('cleanup', function(event) {
+      node.addEventListener('boomQueries_cleanup', function(event) {
         var self = this;
         this.breaks.forEach(function(br) {
           removeClass(self, br[1]);
@@ -244,9 +244,9 @@
   // Internal method to stay DRY
   function _delete(i) {
     // Remove event listener before discarding to avoid zombies
-    nodes[i].dispatchEvent(new CustomEvent('cleanup'));
-    nodes[i].removeEventListener('checkyourself');
-    nodes[i].removeEventListener('cleanup');
+    nodes[i].dispatchEvent(new CustomEvent('boomQueries_cleanup'));
+    nodes[i].removeEventListener('boomQueries_checkYourself');
+    nodes[i].removeEventListener('boomQueries_cleanup');
     nodes.splice(i, 1);
     return true;
   }
