@@ -13,7 +13,7 @@ var pkg          = require('./package.json'),
     reload       = browserSync.reload;
 
 // Used for copyright headers
-var banner = "/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2014 BoomTown | MIT License */\n";
+var banner = "/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2015 BoomTown | MIT License */\n";
 
 // Styles
 gulp.task('styles', function() {
