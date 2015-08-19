@@ -12,14 +12,14 @@
 </head>
 <body>
 
-	<header class="site-header">
+  <header class="site-header">
     <img class="site-header__logo" src="images/logo-boomqueries.png" alt="BoomQueries Logo">
     <h1 class="site-header__bq">BoomQueries</h1>
     <a href="http://www.boomtownroi.com" target="_blank" class="site-header__btlogo">
       <img src="images/logo-boomtown.svg" alt="BoomTown Logo">
     </a>
   </header>
-  
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-12 col-md-8">
@@ -45,23 +45,23 @@
     <div class="row">
       <div class="col-xs-12 col-md-8" id="first-column">
         <h3 class="title-column">Column</h3>
-        
+
 
       </div> <!-- end column -->
       <div class="col-xs-12 col-md-4" id="second-column">
         <h3 class="title-column">Column</h3>
-        
+
 
       </div> <!-- end column -->
     </div> <!-- end row -->
 
     <div class="row">
       <div class="col-xs-12 col-md-8" id="third-column">
-        
+
 
       </div> <!-- end column -->
       <div class="col-xs-12 col-md-4" id="fourth-column">
-        
+
 
       </div> <!-- end column -->
     </div> <!-- end row -->
@@ -103,7 +103,7 @@
       // ACTUAL ADD CALL
       boomQueries.add(".element", [[480, "element--md"],[600, "element--lg"],[700, "element--xlg"]]);
       boomQueries.add(".element2", [[520, "element2--md"],[680, "element2--lg"]]);
-      
+
       console.log("%cboomQueries.add('.element2', breakPoints);", "font-weight:bold;font-size:12px;color:#080;");
 
       console.assert(boomQueries.nodes.length === 4, "We have 4 elements in our internal array of nodes.");
@@ -165,11 +165,11 @@
         var element2 = createElement2();
         thirdColumn.appendChild(element2);
 
-        element.addEventListener('nodeUpdated', function(event){
+        element.addEventListener('boomQueries_nodeUpdated', function(event){
           console.log(event.detail);
         });
 
-        element2.addEventListener('nodeUpdated', function(event){
+        element2.addEventListener('boomQueries_nodeUpdated', function(event){
           console.log(event.detail);
         });
 
