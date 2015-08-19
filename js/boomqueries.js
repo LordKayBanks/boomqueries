@@ -1,5 +1,5 @@
-/*! BoomQueries 0.0.6 | http://boomtownroi.github.io/boomqueries/ | (c) 2014 BoomTown | MIT License */
-(function (root, factory) {
+/*! BoomQueries 0.2.0 | http://boomtownroi.github.io/boomqueries/ | (c) 2015 BoomTown | MIT License */
+(function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD
     define(['boomQueries'], factory);
@@ -17,58 +17,114 @@
   var nodes = [];
 
   // Hash of selectors with their corresponding break points
-  var map   = {};
+  var map = {};
+
+  // Custom resize listener
+  // @src https://developer.mozilla.org/en-US/docs/Web/Events/resize
+  var optimizedResize = (function() {
+
+    var callbacks = [],
+      running = false;
+
+    // fired on resize event
+    function resize() {
+
+      if (!running) {
+        running = true;
+
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(runCallbacks);
+        } else {
+          setTimeout(runCallbacks, 66);
+        }
+      }
+
+    }
+
+    // run the actual callbacks
+    function runCallbacks() {
+
+      callbacks.forEach(function(callback) {
+        callback();
+      });
+
+      running = false;
+    }
+
+    // adds callback to loop
+    function addCallback(callback) {
+
+      if (callback) {
+        callbacks.push(callback);
+      }
+
+    }
+
+    return {
+      // public method to add additional callback
+      add: function(callback) {
+        if (!callbacks.length) {
+          window.addEventListener('resize', resize);
+        }
+        addCallback(callback);
+      }
+    };
+  }());
 
   // classList.add() Polyfill
   function addClass(el, className) {
-    if (el.classList)
-      el.classList.add(className);
-    else
-      el.className += ' ' + className;
+    if (className) {
+      // http://codepen.io/anon/pen/WbqddB?editors=101
+      var classes = className.split(' ');
+      classes.forEach(function(name) {
+        if (name.length > 0) {
+          if (el.classList)
+            el.classList.add(name);
+          else
+            el.className += ' ' + name;
+        }
+      });
+    }
   }
 
   // classList.remove() Polyfill
   function removeClass(el, className) {
-    if (el.classList)
-      el.classList.remove(className);
-    else
-      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    if (className) {
+      // http://codepen.io/anon/pen/WbqddB?editors=101
+      var classes = className.split(' ');
+      classes.forEach(function(name) {
+        if (name.length > 0) {
+          if (el.classList)
+            el.classList.remove(name);
+          else
+            el.className = el.className.replace(new RegExp('(^|\\b)' + name.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+      });
+    }
   }
 
   // Polyfill for CustomEvent
   // source: https://developer.mozilla.org/en/docs/Web/API/CustomEvent
   var CustomEvent = window.CustomEvent;
   if (typeof CustomEvent === "object") {
-    CustomEvent = function ( event, params ) {
-      params = params || { bubbles: false, cancelable: false, detail: undefined };
-      var evt = document.createEvent( 'CustomEvent' );
-      evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    CustomEvent = function(event, params) {
+      params = params || {
+        bubbles: false,
+        cancelable: false,
+        detail: undefined
+      };
+      var evt = document.createEvent('CustomEvent');
+      evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
       return evt;
     };
     CustomEvent.prototype = window.Event.prototype;
-  }
-
-  // Rate limit the amount of times our update method gets called on window resize
-  function debounce(context, func, wait, immediate) {
-    var timeout;
-    return function() {
-      var args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
   }
 
   // Called whenever we need to ensure all nodes have their proper class
   function update(options) {
     var details = {};
     // You can pass a custom object to each node when we dispatch the event
-    if ( typeof options !== 'undefined' ) details.detail = options;
+    if (typeof options !== 'undefined') details.detail = options;
     var updateEvent = new CustomEvent('checkyourself', details);
     // Loop through our nodes firing a 'checkyourself' event on each of them
     nodes.forEach(function(node) {
@@ -76,36 +132,40 @@
     });
   }
 
+  optimizedResize.add(function() {
+    update();
+  });
+
   // Internal function that accepts a DOM node with break points
   // Adds custom properties and a listener to the node and then stores the node in an internal array
   function _add(node, breakPoints, selector) {
     // Check to ensure we aren't already tracking this node
-    if ( node.breaks === undefined ) {
+    if (node.breaks === undefined) {
 
       // Store the break points array in the node
       node.breaks = breakPoints;
 
       // If we pass a selector/name, add it to the node so we can reference it later
-      if ( selector !== null ) node.selector = selector;
+      if (selector !== null) node.selector = selector;
 
       // Attach an event listener with functionality to update it's own class
       node.addEventListener('checkyourself', function(event) {
         // event.detail is custom object if we have one
 
         // Ensure we have a parent with layout to assess our offsetWidth from
-        if ( this.offsetParent !== null ) {
+        if (this.offsetParent !== null) {
           var componentBreaksCounter = this.breaks.length,
-              currentWidth = this.offsetWidth,
-              currentBreak = -1;
+            currentWidth = this.offsetWidth,
+            currentBreak = -1;
 
-          while ( componentBreaksCounter-- ) {
-            if ( currentWidth >= this.breaks[componentBreaksCounter][0] ) {
+          while (componentBreaksCounter--) {
+            if (currentWidth >= this.breaks[componentBreaksCounter][0]) {
               currentBreak++;
             }
             removeClass(this, this.breaks[componentBreaksCounter][1]);
           }
 
-          if ( currentBreak >= 0 ) {
+          if (currentBreak >= 0) {
             addClass(this, this.breaks[currentBreak][1]);
           }
 
@@ -126,7 +186,7 @@
       node.addEventListener('cleanup', function(event) {
         var self = this;
         this.breaks.forEach(function(br) {
-          classListRemove(self, br[1]);
+          removeClass(self, br[1]);
         });
       });
 
@@ -152,13 +212,13 @@
   // Breakpoints is a multi dimensional array containing an offsetWidth int and a corresponding class name
   // Name is an optional parameter that allows you to specify or name a DOM node
   function add(selector, breakPoints, name) {
-    if ( typeof selector === 'string' ) {
+    if (typeof selector === 'string') {
       _addSelector(selector, breakPoints);
     } else {
       var id = null;
-      if ( name !== 'undefined' ) id = name;
-      if ( selector.constructor === Array ) {
-        selector.forEach(function(node){
+      if (name !== 'undefined') id = name;
+      if (selector.constructor === Array) {
+        selector.forEach(function(node) {
           _add(node, breakPoints, id);
         });
       } else {
@@ -197,19 +257,19 @@
     var i;
 
     // Remove node based on selector or unique name provided
-    if ( selector !== undefined ) {
-      for ( i = nodes.length; i--; ) {
-        if ( nodes[i].selector === selector ) {
+    if (selector !== undefined) {
+      for (i = nodes.length; i--;) {
+        if (nodes[i].selector === selector) {
           _delete(i);
         }
       }
       // Make sure our selector map actually has selector before deleting
       // If we pass an ID of DOM node to delete, it won't be contained in our selector map
-      if ( map.hasOwnProperty(selector) ) delete map[selector];
-    // If a selector is not passed, let's remove the node if it is no longer in the DOM
+      if (map.hasOwnProperty(selector)) delete map[selector];
+      // If a selector is not passed, let's remove the node if it is no longer in the DOM
     } else {
-      for ( i = nodes.length; i--; ) {
-        if ( !document.body.contains(nodes[i]) ) {
+      for (i = nodes.length; i--;) {
+        if (!document.body.contains(nodes[i])) {
           _delete(i);
         }
       }
@@ -218,8 +278,8 @@
 
   function get(selector) {
     // Loop through internal array of nodes
-    for ( var i = nodes.length; i--; ) {
-      if ( nodes[i].selector === selector ) {
+    for (var i = nodes.length; i--;) {
+      if (nodes[i].selector === selector) {
         return nodes[i];
       }
     }
@@ -228,25 +288,22 @@
   // Just logs the internal array of nodes for debug/inspection
   // You can specify which internal store you want to inspect: map or nodes
   function inspect(which) {
-    if ( typeof console !== 'undefined' ) {
-      if ( which === 'map' ) console.log(map);
+    if (typeof console !== 'undefined') {
+      if (which === 'map') console.log(map);
       else console.log(nodes);
     }
   }
 
-  // Dispatch our custom event when the window resizes
-  window.addEventListener('resize', debounce(null, update, 100), false);
-
   return {
     // Exposing for tests
-    nodes:   nodes,
-    map:     map,
+    nodes: nodes,
+    map: map,
 
-    update:  update,
-    add:     add,
+    update: update,
+    add: add,
     refresh: refresh,
-    remove:  remove,
-    get:     get,
+    remove: remove,
+    get: get,
     inspect: inspect
   };
 
