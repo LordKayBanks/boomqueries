@@ -2,7 +2,7 @@
   "name": "boomqueries",
   "title": "BoomQueries",
   "description": "BoomQueries is our take on element queries; sizing elements based on their container.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "keywords": [
     "boomqueries",
     "element",

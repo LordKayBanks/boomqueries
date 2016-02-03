@@ -135,6 +135,47 @@
     update();
   });
 
+  function _checkYourself(event) {
+    // event.detail is custom object if we have one
+
+    // Ensure we have a parent with layout to assess our offsetWidth from
+    if (this.offsetParent !== null) {
+      var componentBreaksCounter = this.breaks.length,
+        currentWidth = this.offsetWidth,
+        currentBreak = -1;
+
+      while (componentBreaksCounter--) {
+        if (currentWidth >= this.breaks[componentBreaksCounter][0]) {
+          currentBreak++;
+        }
+        removeClass(this, this.breaks[componentBreaksCounter][1]);
+      }
+
+      if (currentBreak >= 0) {
+        addClass(this, this.breaks[currentBreak][1]);
+      }
+
+      // Create a custom object with details of our event to pass to our callback
+      var details = {
+        detail: {
+          'offsetWidth': currentWidth,
+          'currentBreak': this.breaks[currentBreak]
+        }
+      };
+      var completedEvent = new CustomEvent('boomQueries_nodeUpdated', details);
+
+      // You can now attach an event listener to this node to catch when we have completed the event
+      this.dispatchEvent(completedEvent);
+    }
+  }
+
+  function _cleanup(event) {
+    var self = this;
+    this.breaks.forEach(function(br) {
+      removeClass(self, br[1]);
+    });
+  }
+
   // Internal function that accepts a DOM node with break points
   // Adds custom properties and a listener to the node and then stores the node in an internal array
   function _add(node, breakPoints, selector) {
@@ -148,46 +189,9 @@
       if (selector !== null) node.selector = selector;
 
       // Attach an event listener with functionality to update it's own class
-      node.addEventListener('boomQueries_checkYourself', function(event) {
-        // event.detail is custom object if we have one
+      node.addEventListener('boomQueries_checkYourself', _checkYourself);
 
-        // Ensure we have a parent with layout to assess our offsetWidth from
-        if (this.offsetParent !== null) {
-          var componentBreaksCounter = this.breaks.length,
-            currentWidth = this.offsetWidth,
-            currentBreak = -1;
-
-          while (componentBreaksCounter--) {
-            if (currentWidth >= this.breaks[componentBreaksCounter][0]) {
-              currentBreak++;
-            }
-            removeClass(this, this.breaks[componentBreaksCounter][1]);
-          }
-
-          if (currentBreak >= 0) {
-            addClass(this, this.breaks[currentBreak][1]);
-          }
-
-          // Create a custom object with details of our event to pass to our callback
-          var details = {
-            detail: {
-              'offsetWidth': currentWidth,
-              'currentBreak': this.breaks[currentBreak]
-            }
-          };
-          var completedEvent = new CustomEvent('boomQueries_nodeUpdated', details);
-
-          // You can now attach an event listener to this node to catch when we have completed the event
-          this.dispatchEvent(completedEvent);
-        }
-      });
-
-      node.addEventListener('boomQueries_cleanup', function(event) {
-        var self = this;
-        this.breaks.forEach(function(br) {
-          removeClass(self, br[1]);
-        });
-      });
+      node.addEventListener('boomQueries_cleanup', _cleanup);
 
       // Push the node on to our stack of nodes
       nodes.push(node);
@@ -245,8 +249,8 @@
   function _delete(i) {
     // Remove event listener before discarding to avoid zombies
     nodes[i].dispatchEvent(new CustomEvent('boomQueries_cleanup'));
-    nodes[i].removeEventListener('boomQueries_checkYourself');
-    nodes[i].removeEventListener('boomQueries_cleanup');
+    nodes[i].removeEventListener('boomQueries_checkYourself', _checkYourself);
+    nodes[i].removeEventListener('boomQueries_cleanup', _cleanup);
     nodes.splice(i, 1);
     return true;
   }
